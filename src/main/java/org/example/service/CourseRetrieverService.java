@@ -28,7 +28,11 @@ public class CourseRetrieverService {
 
         try {
             HttpResponse<String> response = CLIENT.send(request, bodyHandler);
-            return response.body();
+            return switch (response.statusCode()) {
+                case 200 -> response.body();
+                case 404 -> "";
+                default -> throw new RuntimeException("Unexpected response code: " + response.statusCode());
+            };
         } catch (IOException | InterruptedException ex) {
             throw new RuntimeException("could not call API",ex);
         }
