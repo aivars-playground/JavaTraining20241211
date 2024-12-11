@@ -17,13 +17,13 @@ class CourseTest {
     @Test
     void constructorWithValidation_exception_null() {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Course(null,"title", 11, "uri://", Optional.empty()));
-        assertEquals("invalid field value", exception.getMessage());
+        assertEquals("No value present!", exception.getMessage());
     }
 
     @Test
     void constructorWithValidation_exception_blank() {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Course("   ","title", 11, "uri://", Optional.empty()));
-        assertEquals("invalid field value", exception.getMessage());
+        assertEquals("No value present!", exception.getMessage());
     }
 
 }
