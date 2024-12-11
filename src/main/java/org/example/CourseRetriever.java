@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.service.CourseRetrieverService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,5 +24,9 @@ public class CourseRetriever {
 
     private static void retrieveCourses(String authorId) {
         LOGGER.info("Retrieving courses for authorId: '{}'", authorId);
+        CourseRetrieverService courseRetrieverService = new CourseRetrieverService();
+
+        String course = courseRetrieverService.retrieveCourse(authorId);
+        LOGGER.info("Retrieved course: '{}'", course);
     }
 }
