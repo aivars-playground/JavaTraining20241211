@@ -10,7 +10,10 @@ public class CourseRetrieverService {
 
     private static final String PS_URI = "https://app.pluralsight.com/profile/data/author/%s/all-content";
 
-    private static final HttpClient CLIENT = HttpClient.newHttpClient();
+    private static final HttpClient CLIENT = HttpClient
+            .newBuilder()
+            .followRedirects(HttpClient.Redirect.ALWAYS)
+            .build();
 
     public String retrieveCourse(String courseId) {
 
