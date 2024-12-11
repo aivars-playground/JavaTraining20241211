@@ -1,8 +1,11 @@
 package org.example;
 
+import org.example.service.Course;
 import org.example.service.CourseRetrieverService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class CourseRetriever {
 
@@ -26,7 +29,7 @@ public class CourseRetriever {
         LOGGER.info("Retrieving courses for authorId: '{}'", authorId);
         CourseRetrieverService courseRetrieverService = new CourseRetrieverService();
 
-        String course = courseRetrieverService.retrieveCourse(authorId);
-        LOGGER.info("Retrieved course: '{}'", course);
+        List<Course> course = courseRetrieverService.retrieveCourse(authorId);
+        LOGGER.info("Retrieved {} courses: '{}'", course.size(), course);
     }
 }
