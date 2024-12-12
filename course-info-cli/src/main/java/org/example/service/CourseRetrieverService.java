@@ -21,7 +21,7 @@ public class CourseRetrieverService {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public List<Course> retrieveCourse(String courseId) {
+    public List<PsCourse> retrieveCourse(String courseId) {
 
         HttpRequest request = HttpRequest
                 .newBuilder(URI.create(String.format(PS_URI, courseId)))
@@ -38,7 +38,7 @@ public class CourseRetrieverService {
                 case 200 -> {
                     JavaType returnType = MAPPER
                             .getTypeFactory()
-                            .constructCollectionType(List.class, Course.class);
+                            .constructCollectionType(List.class, PsCourse.class);
                     yield MAPPER.readValue(response.body(), returnType);
                 }
                 case 404 -> List.of();

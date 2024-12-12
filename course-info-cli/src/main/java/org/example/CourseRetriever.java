@@ -1,6 +1,8 @@
 package org.example;
 
-import org.example.service.Course;
+import org.example.repository.CourseRepository;
+import org.example.service.CourseStorageService;
+import org.example.service.PsCourse;
 import org.example.service.CourseRetrieverService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +33,19 @@ public class CourseRetriever {
         LOGGER.info("Retrieving courses for authorId: '{}'", authorId);
         CourseRetrieverService courseRetrieverService = new CourseRetrieverService();
 
-        List<Course> activeCourses = courseRetrieverService
+        List<PsCourse> activeCourses = courseRetrieverService
                 .retrieveCourse(authorId)
                 .stream()
-                .filter(not(Course::isRetired))
+                .filter(not(PsCourse::isRetired))
                 .toList();
 
         LOGGER.info("Retrieved {} courses: '{}'", activeCourses.size(), activeCourses);
+
+
+        CourseRepository repository = CourseRepository.openCourseRepository("./courses.db");
+        CourseStorageService courseStorageService = new CourseStorageService(repository);
+
+        courseStorageService.store(activeCourses);
+        LOGGER.info("DONE");
     }
 }

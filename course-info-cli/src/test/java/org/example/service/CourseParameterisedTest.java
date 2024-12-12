@@ -15,7 +15,7 @@ class CourseParameterisedTest {
             01:23:45, 83
             """)
     void durationInMinutes(String input, long expected) {
-        Course course = new Course("id","title", input, "uri://", false);
+        PsCourse course = new PsCourse("id","title", input, "uri://", false);
         assertEquals(expected, course.durationInMinutes());
     }
 }
