@@ -1,17 +1,15 @@
 package org.example.server;
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.domain.Course;
 import org.example.repository.CourseRepository;
+import org.example.repository.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/courses")
 public class CourseResource {
@@ -27,11 +25,24 @@ public class CourseResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> getCourses() {
-        return courseRepository
-                .getAllCourses()
-                .stream()
-                .sorted(Comparator.comparing(Course::id))
-                .toList();
+        try {
+            return courseRepository
+                    .getAllCourses()
+                    .stream()
+                    .sorted(Comparator.comparing(Course::id))
+                    .toList();
+        } catch (RepositoryException rex) {
+            LOGGER.error("REPO ERROR", rex);
+            throw new NotFoundException(); //this will show 404
+        }
 
+    }
+
+    @POST
+    @Path("/{id}/notes")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void addNote(@PathParam("id") String id, String notes) {
+        LOGGER.info("add notes to {}, note:`{}`", id, notes);
+        courseRepository.addNotes(id,notes);
     }
 }

@@ -35,6 +35,7 @@ class CourseJdbcRepository implements CourseRepository {
 
     @Override
     public List<Course> getAllCourses() {
+        //if (true) throw new RepositoryException("testing error wrapper", new SQLException("testing error"));
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM COURSES");
