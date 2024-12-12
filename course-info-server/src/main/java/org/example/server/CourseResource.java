@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
-import java.util.List;
+import java.util.stream.Stream;
 
 @Path("/courses")
 public class CourseResource {
@@ -24,13 +24,12 @@ public class CourseResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> getCourses() {
+    public Stream<Course> getCourses() {
         try {
             return courseRepository
                     .getAllCourses()
                     .stream()
-                    .sorted(Comparator.comparing(Course::id))
-                    .toList();
+                    .sorted(Comparator.comparing(Course::id));
         } catch (RepositoryException rex) {
             LOGGER.error("REPO ERROR", rex);
             throw new NotFoundException(); //this will show 404
