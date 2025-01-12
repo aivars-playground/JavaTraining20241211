@@ -1,6 +1,8 @@
-package org.example.repository;
+package org.example.repository.impl;
 
 import org.example.domain.Course;
+import org.example.repository.CourseRepository;
+import org.example.domain.RepositoryException;
 import org.h2.jdbcx.JdbcDataSource;
 
 import javax.sql.DataSource;
@@ -10,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-class CourseJdbcRepository implements CourseRepository {
+public class CourseJdbcRepository implements CourseRepository {
 
     private static final String H2_DATABASE_URL =
             "jdbc:h2:file:%s;AUTO_SERVER=TRUE;INIT=RUNSCRIPT FROM './db_init.sql'";
@@ -27,7 +29,7 @@ class CourseJdbcRepository implements CourseRepository {
 
     private final DataSource dataSource;
 
-    CourseJdbcRepository(String databaseFile) {
+    public CourseJdbcRepository(String databaseFile) {
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
         jdbcDataSource.setURL(H2_DATABASE_URL.formatted(databaseFile));
         this.dataSource = jdbcDataSource;

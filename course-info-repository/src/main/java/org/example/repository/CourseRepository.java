@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.domain.Course;
+import org.example.repository.impl.CourseJdbcRepository;
 
 import java.util.List;
 

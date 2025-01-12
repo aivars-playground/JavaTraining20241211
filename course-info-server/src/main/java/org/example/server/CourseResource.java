@@ -4,7 +4,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.domain.Course;
 import org.example.repository.CourseRepository;
-import org.example.repository.RepositoryException;
+import org.example.domain.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
