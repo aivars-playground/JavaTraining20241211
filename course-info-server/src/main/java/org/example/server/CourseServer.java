@@ -13,6 +13,8 @@ import java.net.URI;
 import java.util.Properties;
 import java.util.logging.LogManager;
 
+import static org.glassfish.jersey.server.ServerProperties.WADL_FEATURE_DISABLE;
+
 public class CourseServer {
 
     static {
@@ -31,7 +33,10 @@ public class CourseServer {
         LOGGER.info("database file: {}", databaseFileName);
 
         CourseRepository repository = CourseRepository.openCourseRepository(databaseFileName);
-        ResourceConfig config = new ResourceConfig().register(new CourseResource(repository));
+
+        ResourceConfig config = new ResourceConfig()
+                .property(WADL_FEATURE_DISABLE, true)
+                .register(new CourseResource(repository));
 
         GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), config);
     }
