@@ -1,7 +1,7 @@
 module courseinfo.server {
 
     requires courseinfo.repository;
-    exports org.example.server to jersey.server;
+    opens org.example.server to jersey.server;
 
     requires java.logging;
     requires jakarta.ws.rs;
